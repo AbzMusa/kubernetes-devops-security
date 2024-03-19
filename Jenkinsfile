@@ -26,13 +26,15 @@ pipeline {
          jacoco execPattern: 'target/jacoco.exec'
        }
       }
-     }
-    stage('Docker Build and Push')
-        steps {
-            sh 'printenv'
-            sh 'docker build -t manlikeabz/numeric-app:""$GIT_COMMIT"" .'
-            sh 'docker push manlikeabz/numeric-app:""$GIT_COMMIT""'
-          }
-        }
     }
+     
+    stage('Docker Build and Push') {
+      steps {
+        sh 'printenv'
+        // Corrected variable usage for GIT_COMMIT
+        sh "docker build -t manlikeabz/numeric-app:${GIT_COMMIT} ."
+        sh "docker push manlikeabz/numeric-app:${GIT_COMMIT}"
+      }
+    }
+    
 }
