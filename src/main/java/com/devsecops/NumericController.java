@@ -37,17 +37,15 @@ class NumericController {
                 logger.info("Node Service Response - {}", response);
                 return Integer.parseInt(response);
             } catch (NumberFormatException e) {
-                logger.error("Error parsing response to integer. Value received: {}, Error: {}", value, e.getMessage());
-                throw new ResponseParseException("Failed to parse the response from Node Service for value: " + value, e);
+                logger.error("Error parsing response to integer", e);
+                throw new ResponseParseException("Failed to parse the response from Node Service", e);
             }
         }
     }
 
-    // Custom exception class for handling response parse errors
     static class ResponseParseException extends RuntimeException {
         ResponseParseException(String message, Throwable cause) {
             super(message, cause);
-            // Optionally log here if more detail is needed across layers
         }
     }
 }
