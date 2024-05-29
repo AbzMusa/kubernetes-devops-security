@@ -62,7 +62,7 @@ pipeline {
 
         stage('Vulnerability Scan - Docker') {
             parallel {
-                "Maven Dependency Check": {
+                stage('Maven Dependency Check') {
                     steps {
                         script {
                             sh "mvn dependency-check:check"
@@ -74,7 +74,7 @@ pipeline {
                         }
                     }
                 }
-                "Trivy Scan": {
+                stage('Trivy Scan') {
                     steps {
                         script {
                             sh "bash trivy-docker-image-scan.sh"
@@ -84,6 +84,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Docker Build and Push') {
             steps {
